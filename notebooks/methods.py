@@ -1,9 +1,6 @@
-import numpy as np
-from pandas import DataFrame
-from itertools import combinations
-
-
 def distance(v1, v2, metric='minkowski', L=2, cov=None):
+    import numpy as np
+    
     if metric == "minkowski":
         return np.power(np.power(v1 - v2, L).sum(), 1/L)
     elif metric == "mahalanobis" and cov is not None:
@@ -28,6 +25,9 @@ def inter_class(df, source_class, target_class, cats=None, metric='minkowski', c
 
 
 def pair_distances(df, cov, cats=None):
+    from pandas import DataFrame
+    from itertools import combinations
+    
     cats = df.columns[-1] if cats is None else cats
     distances = []
     
@@ -49,3 +49,24 @@ def pair_distances(df, cov, cats=None):
         "class 1", "class 2", "intra_euclid", "inter_euclid", "separated_euclid",
         "intra_mahala", "inter_mahala", "separated_mahala"
     ])
+
+
+def hist_plot(df, var, cats='species'):
+    from itertools import combinations
+    from operator import itemgetter
+    import matplotlib.pyplot as plt
+    from seaborn import histplot, color_palette
+    
+    colours = ["blue", "orange", "green"]
+    palette = dict(zip(colours, color_palette()[0:3]))
+    col = lambda c1, c2: itemgetter(c1, c2)(palette)
+    
+    species = list(df[cats].unique())
+    species.reverse()
+    
+    fig, axs = plt.subplots(1, 3, figsize=(16, 6))
+    fig.suptitle(f"Class distributions for {var}")
+    
+    for i, (cla, cols) in enumerate(zip(species, combinations(colours, 2))):
+        histplot(df[df[cats] != cla], x=var, hue=cats, bins=15, ax=axs[i], palette=col(*cols))
+    plt.plot()
