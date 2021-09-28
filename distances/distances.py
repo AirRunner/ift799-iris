@@ -4,7 +4,7 @@ def distance(v1, v2, metric='minkowski', L=2, cov=None):
     if metric == "minkowski":
         return np.power(np.power(v1 - v2, L).sum(), 1/L)
     elif metric == "mahalanobis" and cov is not None:
-        return np.dot(np.dot((v1 - v2).transpose(), np.linalg.pinv(cov)), (v1 - v2))
+        return np.sqrt(np.dot(np.dot((v1 - v2).transpose(), np.linalg.pinv(cov)), (v1 - v2)))
     else:
         raise NotImplementedError
 
