@@ -15,5 +15,5 @@ def hist_plot(df, var, cats='species'):
     fig.suptitle(f"Class distributions for {var}")
     
     for i, (cla, cols) in enumerate(zip(species, combinations(colours, 2))):
-        histplot(df[df[cats] != cla], x=var, hue=cats, bins=15, ax=axs[i], palette=col(*cols))
+        histplot(df[df[cats] != cla], x=var, multiple="stack", hue=cats, bins=15, ax=axs[i], palette=col(*cols))
     plt.plot()
