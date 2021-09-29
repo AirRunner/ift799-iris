@@ -43,7 +43,10 @@ def run_pca(df, cats=None, scale=False, n_comps=None, projection=None, plot=Fals
     if projection is not None:
         df_scaled = DataFrame(x)
         df_scaled[cats] = y
-        x_fit = df_scaled[y == projection].drop(cats, axis=1)
+        if type(projection) == str:
+            x_fit = df_scaled[y == projection].drop(cats, axis=1)
+        elif len(projection) > 1:
+            x_fit = df_scaled[(y == projection[0]) | (y == projection[1])].drop(cats, axis=1)
 
     n_comps = x.shape[1] if n_comps is None else int(n_comps)
 
