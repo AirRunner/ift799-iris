@@ -16,7 +16,7 @@ def hist_plot(df, var, cats='species'):
     
     for i, (cla, cols) in enumerate(zip(species, combinations(colours, 2))):
         histplot(df[df[cats] != cla], x=var, multiple="stack", hue=cats, bins=15, ax=axs[i], palette=col(*cols))
-    plt.plot()
+    plt.show()
 
 
 def run_pca(df, cats=None, scale=False, n_comps=None, projection=None, plot=False, title=''):
