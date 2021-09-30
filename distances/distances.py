@@ -32,7 +32,7 @@ def pair_distances(df, cov, cats=None):
     distances = []
     
     for (class1, class2) in combinations(df[cats].unique(), 2):
-        for i in range(2):
+        for _ in range(2):
             intra_euclid = intra_class(df, class1)
             inter_euclid = inter_class(df, class2, class1)
             
