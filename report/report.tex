@@ -68,8 +68,8 @@
     \begin{itemize}
         \item Implémenter les différentes fonctions de distance
         \item Calculer les distances intra et inter-classe en utilisant les distances euclidienne et de Mahalanobis pour chaque paire de classe
-        \item Répéter l'étape précédente en normalisant les données
         \item Tester différentes combinaisons de variables pour les calculs de distance
+        \item Employer une autre méthode pour calculer la matrice de covariance pour la distance de Mahalanobis
     \end{itemize}
     
     \chapter{Distances spatiales}
@@ -105,7 +105,7 @@
     \subsection{Distance de Mahalanobis}
     La distance de Mahalanobis est quand à elle caractérisée par la formule suivante :
     \begin{equation}
-        \mathrm{dist}(u,v)=(u-v)^T\cdot\Sigma^{-1}\cdot(u-v)
+        \mathrm{dist}(u,v)=\sqrt{(u-v)^T\cdot\Sigma^{-1}\cdot(u-v)}
     \end{equation}
     
     \noindent Où $\Sigma$ est la matrice de variance-covariance de l'ensemble de données $X$ :
@@ -262,17 +262,17 @@
     \end{figure}
     
     On constate donc, comme attendu, que la classe \texttt{setosa} (en bleu) est clairement séparée des autres classes.
-    Par contre, les classe \texttt{versicolor} et \texttt{virginica} se chevauchent sur un ensemble assez large de données.
+    Par contre, les classes \texttt{versicolor} et \texttt{virginica} se chevauchent sur un ensemble assez large de données.
 
     \section{Données avec transformation ACP}
     
     Nous avons ensuite réalisé la même démarche en appliquant cette fois-ci une analyse en composantes principales (ACP).
-    Ainsi, nous obtenons quatre nouvelles variables, calculées à partir du jeu de données original et de quatre composantes principales.
+    Ainsi, nous obtenons quatre nouvelles variables, calculées à partir des quatre attributs du jeu de données original.
     
     \subsection{Données initiales}
     
     À chaque composante principale est associée une valeur propre, qui représente le niveau d'explication de la variance des données par la composante correspondante.
-    Commençons par travailler sur nos données brutes, voyons quelles sont les valeurs propres pour notre analyse ACP.
+    Commençons par travailler sur nos données brutes, voyons quelles sont les valeurs propres pour notre ACP.
     
     \begin{table}[h]
         \centering
@@ -305,22 +305,21 @@
     On constate à nouveau sur ce graphe que les classes \texttt{versicolor} et \texttt{virginica} se chevauchent beaucoup.
     L'ACP n'a donc pas permis de séparer ces deux classes.
     
-    Cependant, il reste encore une possibilité : plutôt que de faire l'analyse sur l'ensemble du jeu de données, il est possible que les composantes calculées sur une seule classe
-    
     \subsection{Données normalisées}
     
     En procédant à l'ACP avec les données normalisées, la première valeur propre est moins prédominante, expliquant 73\% de la variance seulement.
     
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.69\textwidth]{raw_eighen_ratio_scaled}
+        \includegraphics[width=0.75\textwidth]{raw_eighen_ratio_scaled}
         \caption{Distribution des valeurs propres, données normalisées}
     \end{figure}
     
-    
-    Cependant, la normalisation des donnée ne nous a pas permis non plus de clairement séparer les trois classes, peu importe les composantes choisies pour la projection.
+    \newpage
+    Cependant, la normalisation des données ne nous a pas permis non plus de clairement séparer les trois classes, peu importe les composantes choisies pour la projection.
     C'est pourquoi nous avons ensuite tenté d'appliquer l'analyse en composantes principales autrement.
     
+    \subsection{ACP sur chaque classe}
     
     Dans cette section, plutôt que de déterminer les composantes sur l'ensemble du jeu de données, nous allons le faire sur chacune des trois classes \texttt{setosa}, \texttt{versicolor} et \texttt{virginica}.
     Ensuite seulement nous projetterons l'ensemble des données sur ces composantes.
@@ -330,7 +329,7 @@
     Nous avons donc effectué l'analyse sur toutes les classes, à la fois avec les données brutes et les données normalisées.
     Cela ne nous a néanmoins pas permis de séparer les classes \texttt{versicolor} et \texttt{virginica}.
     
-    Le meilleur résultat sur une dimension est obtenu sur \texttt{setosa}, avec les données normalisées, projeté sur la troisième composante.
+    Le meilleur résultat sur une dimension est obtenu sur \texttt{setosa}, avec les données normalisées, projetées sur la troisième composante.
     
     \begin{figure}[h]
         \centering
