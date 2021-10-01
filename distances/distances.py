@@ -24,7 +24,8 @@ def inter_class(df, source_class, target_class, cats=None, metric='minkowski', c
     return df.apply(lambda elt: distance(elt, center, metric=metric, cov=cov), axis=1).min()
 
 
-def pair_distances(df, cov, cats=None):
+def pair_distances(df, cats=None):
+    import numpy as np
     from pandas import DataFrame
     from itertools import combinations
     
@@ -33,6 +34,8 @@ def pair_distances(df, cov, cats=None):
     
     for (class1, class2) in combinations(df[cats].unique(), 2):
         for _ in range(2):
+            cov = np.cov(df[df.species == class1].drop('species', axis=1).transpose())
+
             intra_euclid = intra_class(df, class1)
             inter_euclid = inter_class(df, class2, class1)
             
