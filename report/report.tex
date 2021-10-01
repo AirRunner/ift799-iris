@@ -131,7 +131,7 @@
     
     Pour chaque paire de classe, calculons donc la distance intra-classe de la première puis la distance inter-classe entre les deux classes.
     Ce calcul est effectué dans les deux sens car la distance inter-classe est directionnelle (de la classe 2 à la classe 1).
-    Le calcul de ces distances en utilisant la formule d'Euclide donne les résultats suivants :
+    Le calcul de ces distances en utilisant la formule d'Euclide avec les quatre variables donne les résultats suivants :
     
     \begin{table}[h]
         \centering
@@ -198,7 +198,9 @@
     
     \subsection{Covariance par classe}
     
-    En se référant aux covariances de chaque classe individuellement, peu importe la classe choisie, nous arrivons toujours à séparer la classe \texttt{setosa} :
+    L'idée est donc, par exemple pour le calcul de la distance intra-classe de \texttt{setosa} et inter-classe entre \texttt{setosa} et \texttt{versicolor}, de calculer la matrice de covariance sur les données de \texttt{setosa}.
+    
+    En suivant cette méthode, voici les résultats obtenus :
     
     \begin{table}[h]
         \centering
@@ -206,21 +208,25 @@
             \hline
             \textbf{Classe 1} & \textbf{Classe 2} & \textbf{Intra-classe} & \textbf{Inter-classe} & \textbf{Séparées} \\
             \hline\hline
-            setosa & versicolor & 2.93 & 4.80 & {\color{ForestGreen}oui} \\
-            setosa & virginica & 2.98 & 9.46 & {\color{ForestGreen}oui} \\
+            setosa & versicolor & 3.51 & 11.65 & {\color{ForestGreen}oui} \\
+            setosa & virginica & 3.51 & 20.94 & {\color{ForestGreen}oui} \\
             \hline
-            versicolor & setosa & 5.01 & 6.62 & {\color{ForestGreen}oui} \\
-            versicolor & virginica & 5.01 & 1.07 & {\color{BrickRed}non} \\
+            versicolor & setosa & 3.53 & 7.31 & {\color{ForestGreen}oui} \\
+            versicolor & virginica & 3.53 & 2.32 & {\color{BrickRed}non} \\
             \hline
-            virginica & setosa & 4.74 & 10.38 & {\color{ForestGreen}oui} \\
-            virginica & versicolor & 4.74 & 0.70 & {\color{BrickRed}non} \\
+            virginica & setosa & 3.70 & 11.11 & {\color{ForestGreen}oui} \\
+            virginica & versicolor & 3.70 & 1.66 & {\color{BrickRed}non} \\
             \hline
         \end{tabular}
-        \caption{Distances de Mahalanobis covariances sur la classe \texttt{setosa}.}
+        \caption{Distances de Mahalanobis, covariances par classe.}
     \end{table}
     \leavevmode
     
-    Nous avons donc réussi à séparer la classe \texttt{setosa} par rapport aux autres. Toutefois, malgré les différentes tentatives, les deux autres classes que sont \texttt{virginica} et \texttt{versicolor} n'ont pas pu être séparées en utilisant des fonctions de séparation.
+    Nous avons donc réussi à séparer la classe \texttt{setosa} par rapport aux autres. Ensuite, comme pour la distance euclidienne, nous avons testé différentes combinaisons de variables et les résultats sont similaires, les classes séparées de la même manière.
+    
+    On constate également que la distance de Mahalanobis permet d'amplifier la distance inter-classe vis-à-vis de la distance intra-classe. Cela renforce l'aspect sépararé des classes par rapport à la distance euclidienne.
+    
+    Toutefois, malgré les différentes tentatives, les deux autres classes que sont \texttt{virginica} et \texttt{versicolor} n'ont pas pu être séparées en utilisant des fonctions de séparation.
     
     
     \part{Visualisation des données}
