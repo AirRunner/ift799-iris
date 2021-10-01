@@ -34,7 +34,7 @@ def pair_distances(df, cats=None):
     
     for (class1, class2) in combinations(df[cats].unique(), 2):
         for _ in range(2):
-            cov = np.cov(df[df.species == class1].drop('species', axis=1).transpose())
+            cov = np.cov(df[df['species'] == class1].drop('species', axis=1).transpose())
 
             intra_euclid = intra_class(df, class1)
             inter_euclid = inter_class(df, class2, class1)
